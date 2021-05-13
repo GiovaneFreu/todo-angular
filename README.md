@@ -11,4 +11,5 @@ Run `json-server --watch db.json`
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 # Example:
-![Tela Inicial do Projeto](GiovaneFreu/todo-angular/PrintScreen.PNG?raw=true "Tela Inicial do Projeto")
+![Tela inicial do projeto.](https://github.com/GiovaneFreu/todo-angular/blob/master/PrintScreen.PNG?raw=true "Tela Inicial do Projeto")
+
