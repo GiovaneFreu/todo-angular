@@ -1,0 +1,59 @@
+{
+  "tarefas": [
+    {
+      "descricao": "Iniciar um MBA",
+      "concluida": true,
+      "id": 1
+    },
+    {
+      "descricao": "Aprender Html",
+      "concluida": true,
+      "id": 2
+    },
+    {
+      "descricao": "Aprender CSS",
+      "concluida": true,
+      "id": 3
+    },
+    {
+      "descricao": "Aprender Javascript",
+      "concluida": true,
+      "id": 4
+    },
+    {
+      "descricao": "Aprender Typescript",
+      "concluida": true,
+      "id": 5
+    },
+    {
+      "descricao": "Aprender Angular",
+      "concluida": true,
+      "id": 6
+    },
+    {
+      "descricao": "Aprender Banco de Dados",
+      "concluida": false,
+      "id": 7
+    },
+    {
+      "descricao": "Aprender sobre Back-End",
+      "concluida": false,
+      "id": 8
+    },
+    {
+      "descricao": "Aprender sobre Autenticação e Autorização",
+      "concluida": false,
+      "id": 9
+    },
+    {
+      "descricao": "Aprender a fazer o deploy da aplicação",
+      "concluida": false,
+      "id": 10
+    },
+    {
+      "descricao": "Finalizar Projeto Aplicado - P.A.",
+      "concluida": false,
+      "id": 11
+    }
+  ]
+}
