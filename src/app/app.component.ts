@@ -17,7 +17,7 @@ interface SimpleTodo {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'TodoPro';
+  title = 'TodoPro - CI/CD Test';
   todoList: SimpleTodo[] = [];
   todo: SimpleTodo = { id: 0, descricao: '', concluida: false };
 
