@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "todo-angular": {
+    "todo-angular-pro": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -20,10 +20,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/todo-angular",
+            "outputPath": "dist/todo-angular-pro",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -41,6 +40,14 @@
             "namedChunks": true
           },
           "configurations": {
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "vendorChunk": true,
+              "buildOptimizer": false
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -69,23 +76,27 @@
               ]
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "todo-angular:build"
+            "buildTarget": "todo-angular-pro:build"
           },
           "configurations": {
+            "development": {
+              "buildTarget": "todo-angular-pro:build:development"
+            },
             "production": {
-              "browserTarget": "todo-angular:build:production"
+              "buildTarget": "todo-angular-pro:build:production"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "todo-angular:build"
+            "buildTarget": "todo-angular-pro:build"
           }
         },
         "test": {
@@ -122,16 +133,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "todo-angular:serve"
+            "devServerTarget": "todo-angular-pro:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "todo-angular:serve:production"
+              "devServerTarget": "todo-angular-pro:serve:production"
             }
           }
         }
       }
     }
-  },
-  "defaultProject": "todo-angular"
+  }
 }

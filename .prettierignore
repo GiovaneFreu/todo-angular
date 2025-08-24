@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+coverage/
+.angular/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
+.env.*
+
+# Generated files
+*.spec.ts
+*.e2e-spec.ts
+
+# Documentation
+docs/
+*.md

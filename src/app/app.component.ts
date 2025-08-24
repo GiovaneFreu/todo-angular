@@ -1,75 +1,90 @@
-import { Observable } from 'rxjs';
-import { ToDo } from './models/toDo';
-import { TodoService } from './services/todo.service';
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+// Simple interfaces for backward compatibility
+interface SimpleTodo {
+  id: number;
+  descricao: string;
+  concluida: boolean;
+}
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  title = 'TodoPro';
+  todoList: SimpleTodo[] = [];
+  todo: SimpleTodo = { id: 0, descricao: '', concluida: false };
 
-  todoList: any | ToDo[] = [];
-  todo: ToDo = new ToDo();
-
-  constructor(private todoService: TodoService) { }
-
-  ngOnInit(): void {
-    this.getAllTodos();
+  constructor() {
+    console.log('🏗️ AppComponent constructor chamado');
   }
 
-  getAllTodos(): void {
-    // tslint:disable-next-line: deprecation
-    this.todoService.getAll().subscribe(
-      data => this.todoList = data,
-      error => console.log(error)
-    );
+  ngOnInit(): void {
+    console.log('🔧 AppComponent ngOnInit chamado');
+    // Initialize with sample data
+    this.todoList = [
+      { id: 1, descricao: 'Learn Angular Signals', concluida: false },
+      { id: 2, descricao: 'Implement dark mode', concluida: true },
+      { id: 3, descricao: 'Create professional UI', concluida: false }
+    ];
   }
 
   save(): void {
-    if (!this.todo.id) {
-      // tslint:disable-next-line: deprecation
-      this.todoService.createToDo(this.todo).subscribe(
-        () => {
-          this.getAllTodos();
-          this.cancel();
-        },
-        error => console.log(error)
-      );
-    } else {
-      this.updateTodo(this.todo);
+    if (this.todo.descricao.trim()) {
+      if (this.todo.id === 0) {
+        // Add new todo
+        const newId = Math.max(...this.todoList.map(t => t.id), 0) + 1;
+        this.todoList.push({
+          id: newId,
+          descricao: this.todo.descricao,
+          concluida: false
+        });
+      } else {
+        // Update existing todo
+        const index = this.todoList.findIndex(t => t.id === this.todo.id);
+        if (index !== -1) {
+          this.todoList[index] = { ...this.todo };
+        }
+      }
+      this.cancel();
     }
   }
 
-  updateTodo(todo: ToDo): void {
-    // tslint:disable-next-line: deprecation
-    this.todoService.updateToDo(todo).subscribe(
-      () => {
-        this.getAllTodos();
-        this.cancel();
-      },
-      error => console.log(error)
-    );
+  cancel(): void {
+    this.todo = { id: 0, descricao: '', concluida: false };
   }
 
   deleteTodo(id: number): void {
-    // tslint:disable-next-line: deprecation
-    this.todoService.deleteToDo(id).subscribe(
-      () => this.getAllTodos()
-    );
+    this.todoList = this.todoList.filter(t => t.id !== id);
   }
 
-  concluidas(): number {
-    return this.todoList.filter((e: any) => e.concluida === true).length;
-  }
-
-  alterarDescricao(todo: ToDo): void {
+  alterarDescricao(todo: SimpleTodo): void {
     this.todo = { ...todo };
   }
 
-  cancel(): void {
-    this.todo = new ToDo();
+  updateTodo(todo: SimpleTodo): void {
+    const index = this.todoList.findIndex(t => t.id === todo.id);
+    if (index !== -1) {
+      this.todoList[index] = { ...todo };
+    }
   }
 
+  concluidas(): number {
+    return this.todoList.filter(t => t.concluida).length;
+  }
+
+  toggleComplete(todo: SimpleTodo): void {
+    todo.concluida = !todo.concluida;
+    this.updateTodo(todo);
+  }
+
+  trackByFn(_index: number, item: SimpleTodo): number {
+    return item.id;
+  }
 }
