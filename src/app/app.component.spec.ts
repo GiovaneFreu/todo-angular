@@ -129,12 +129,14 @@ describe('AppComponent - TDD International Standards', () => {
     it('should validate todo description before saving', () => {
       const fixture = TestBed.createComponent(AppComponent);
       const component = fixture.componentInstance;
+      fixture.detectChanges(); // This triggers ngOnInit which initializes sample data
       
+      const initialCount = component.todoList.length; // Get current count
       component.todo.descricao = 'AB'; // Too short
       component.save();
       
-      // Should not add invalid todo to the list
-      expect(component.todoList.length).toBe(3); // Initial sample data
+      // Should not add invalid todo to the list (count should remain unchanged)
+      expect(component.todoList.length).toBe(initialCount);
     });
 
     it('should show validation errors in template', () => {
