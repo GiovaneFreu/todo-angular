@@ -181,5 +181,14 @@ describe('ValidationService - TDD Enterprise Standards', () => {
       expect(state.characterCount).toBe(22); // "Valid task description" = 22 characters
       expect(state.characterLimit).toBe(100);
     });
+
+    it('should handle validation without required pattern (undefined pattern)', () => {
+      const customRules = { requiredPattern: undefined };
+      const result = service.validateTodoDescription('Valid description', customRules);
+      const state = service.getValidationState('Valid description');
+      
+      expect(result.isValid).toBe(true);
+      expect(state.hasInvalidChars).toBe(false);
+    });
   });
 });
