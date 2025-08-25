@@ -1,0 +1,2 @@
+# Disable auto-deployment from Vercel
+# Deployment should only happen via GitHub Actions
