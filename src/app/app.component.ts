@@ -7,8 +7,8 @@ import { ValidationService } from './services/validation.service';
 // Simple interfaces for backward compatibility
 interface SimpleTodo {
   id: number;
-  descricao: string;
-  concluida: boolean;
+  description: string;
+  completed: boolean;
 }
 
 @Component({
@@ -21,7 +21,7 @@ interface SimpleTodo {
 export class AppComponent implements OnInit {
   title = 'TodoPro - CI/CD Test';
   todoList: SimpleTodo[] = [];
-  todo: SimpleTodo = { id: 0, descricao: '', concluida: false };
+  todo: SimpleTodo = { id: 0, description: '', completed: false };
   
   // TDD GREEN PHASE - Filter Implementation
   currentFilter: TodoFilterType = 'all';
@@ -35,15 +35,15 @@ export class AppComponent implements OnInit {
     console.log('🔧 AppComponent ngOnInit chamado');
     // Initialize with sample data
     this.todoList = [
-      { id: 1, descricao: 'Learn Angular Signals', concluida: false },
-      { id: 2, descricao: 'Implement dark mode', concluida: true },
-      { id: 3, descricao: 'Create professional UI', concluida: false }
+      { id: 1, description: 'Learn Angular Signals', completed: false },
+      { id: 2, description: 'Implement dark mode', completed: true },
+      { id: 3, description: 'Create professional UI', completed: false }
     ];
   }
 
   save(): void {
     // TDD GREEN PHASE - Validation Integration
-    const validationResult = this.validationService.validateTodoDescription(this.todo.descricao);
+    const validationResult = this.validationService.validateTodoDescription(this.todo.description);
     
     if (validationResult.isValid) {
       if (this.todo.id === 0) {
@@ -51,14 +51,14 @@ export class AppComponent implements OnInit {
         const newId = Math.max(...this.todoList.map(t => t.id), 0) + 1;
         this.todoList.push({
           id: newId,
-          descricao: this.todo.descricao.trim(),
-          concluida: false
+          description: this.todo.description.trim(),
+          completed: false
         });
       } else {
         // Update existing todo
         const index = this.todoList.findIndex(t => t.id === this.todo.id);
         if (index !== -1) {
-          this.todoList[index] = { ...this.todo, descricao: this.todo.descricao.trim() };
+          this.todoList[index] = { ...this.todo, description: this.todo.description.trim() };
         }
       }
       this.cancel();
@@ -67,14 +67,14 @@ export class AppComponent implements OnInit {
   }
 
   cancel(): void {
-    this.todo = { id: 0, descricao: '', concluida: false };
+    this.todo = { id: 0, description: '', completed: false };
   }
 
   deleteTodo(id: number): void {
     this.todoList = this.todoList.filter(t => t.id !== id);
   }
 
-  alterarDescricao(todo: SimpleTodo): void {
+  editDescription(todo: SimpleTodo): void {
     this.todo = { ...todo };
   }
 
@@ -86,11 +86,11 @@ export class AppComponent implements OnInit {
   }
 
   concluidas(): number {
-    return this.todoList.filter(t => t.concluida).length;
+    return this.todoList.filter(t => t.completed).length;
   }
 
   toggleComplete(todo: SimpleTodo): void {
-    todo.concluida = !todo.concluida;
+    todo.completed = !todo.completed;
     this.updateTodo(todo);
   }
 
@@ -102,9 +102,9 @@ export class AppComponent implements OnInit {
   get filteredTodos(): SimpleTodo[] {
     switch (this.currentFilter) {
       case 'active':
-        return this.todoList.filter(todo => !todo.concluida);
+        return this.todoList.filter(todo => !todo.completed);
       case 'completed':
-        return this.todoList.filter(todo => todo.concluida);
+        return this.todoList.filter(todo => todo.completed);
       default:
         return this.todoList;
     }
@@ -115,11 +115,11 @@ export class AppComponent implements OnInit {
   }
 
   getActiveCount(): number {
-    return this.todoList.filter(todo => !todo.concluida).length;
+    return this.todoList.filter(todo => !todo.completed).length;
   }
 
   getCompletedCount(): number {
-    return this.todoList.filter(todo => todo.concluida).length;
+    return this.todoList.filter(todo => todo.completed).length;
   }
 
   // Template Helper Methods
@@ -147,11 +147,11 @@ export class AppComponent implements OnInit {
 
   // TDD GREEN PHASE - Validation Methods
   getValidationState() {
-    return this.validationService.getValidationState(this.todo.descricao);
+    return this.validationService.getValidationState(this.todo.description);
   }
 
   getValidationResult() {
-    return this.validationService.validateTodoDescription(this.todo.descricao);
+    return this.validationService.validateTodoDescription(this.todo.description);
   }
 
   isFormValid(): boolean {

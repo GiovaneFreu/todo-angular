@@ -39,7 +39,7 @@ describe('AppComponent - TDD International Standards', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     
-    const input = compiled.querySelector('input[name="descricao"]');
+    const input = compiled.querySelector('input[name="description"]');
     const button = compiled.querySelector('button[type="submit"]');
     
     expect(input).toBeTruthy();
@@ -71,7 +71,7 @@ describe('AppComponent - TDD International Standards', () => {
       
       component.currentFilter = 'active';
       
-      const activeTodos = component.todoList.filter(t => !t.concluida);
+      const activeTodos = component.todoList.filter(t => !t.completed);
       expect(component.filteredTodos.length).toBe(activeTodos.length);
     });
 
@@ -82,7 +82,7 @@ describe('AppComponent - TDD International Standards', () => {
       
       component.currentFilter = 'completed';
       
-      const completedTodos = component.todoList.filter(t => t.concluida);
+      const completedTodos = component.todoList.filter(t => t.completed);
       expect(component.filteredTodos.length).toBe(completedTodos.length);
     });
 
@@ -132,7 +132,7 @@ describe('AppComponent - TDD International Standards', () => {
       fixture.detectChanges(); // This triggers ngOnInit which initializes sample data
       
       const initialCount = component.todoList.length; // Get current count
-      component.todo.descricao = 'AB'; // Too short
+      component.todo.description = 'AB'; // Too short
       component.save();
       
       // Should not add invalid todo to the list (count should remain unchanged)
@@ -145,7 +145,7 @@ describe('AppComponent - TDD International Standards', () => {
       fixture.detectChanges();
       
       // Set invalid input directly on component
-      component.todo.descricao = 'AB'; // Too short
+      component.todo.description = 'AB'; // Too short
       fixture.detectChanges();
       
       const compiled = fixture.nativeElement as HTMLElement;
@@ -169,7 +169,7 @@ describe('AppComponent - TDD International Standards', () => {
       const component = fixture.componentInstance;
       fixture.detectChanges();
       
-      component.todo.descricao = 'AB'; // Invalid: too short
+      component.todo.description = 'AB'; // Invalid: too short
       fixture.detectChanges();
       
       const compiled = fixture.nativeElement as HTMLElement;
@@ -182,7 +182,7 @@ describe('AppComponent - TDD International Standards', () => {
       const fixture = TestBed.createComponent(AppComponent);
       const component = fixture.componentInstance;
       
-      component.todo.descricao = 'This is spam content';
+      component.todo.description = 'This is spam content';
       
       const validationState = component.getValidationState();
       expect(validationState.hasProhibitedWords).toBe(true);
@@ -193,7 +193,7 @@ describe('AppComponent - TDD International Standards', () => {
       const component = fixture.componentInstance;
       
       const initialCount = component.todoList.length;
-      component.todo.descricao = ''; // Invalid: empty
+      component.todo.description = ''; // Invalid: empty
       component.save();
       
       expect(component.todoList.length).toBe(initialCount);
