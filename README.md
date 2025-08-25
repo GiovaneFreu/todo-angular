@@ -13,7 +13,7 @@ A modern, professional-grade task management application built with Angular 20+ 
 
 **[🚀 View Live Application](https://todo-angular-woad.vercel.app/)**
 
-Try the application now! The demo includes all features and represents the latest version deployed automatically via CI/CD.
+Try the application now! The demo includes all features and represents the latest version deployed automatically via CI/CD with enterprise-grade security controls.
 
 > 💡 **For Recruiters**: This application demonstrates modern Angular 20 development with standalone components, TypeScript strict mode, automated CI/CD, and production deployment. Perfect showcase of enterprise-level frontend development skills.
 
