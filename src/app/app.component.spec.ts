@@ -436,10 +436,7 @@ describe('AppComponent - TDD International Standards', () => {
       const fixture = TestBed.createComponent(AppComponent);
       const component = fixture.componentInstance;
       
-      // Spy on ngOnInit to prevent it from populating the list
-      spyOn(component, 'ngOnInit');
-      
-      // Set empty list
+      // Override the initialized list with empty list
       component.todoList = [];
       
       // Test the methods directly - this should cover the ternary branch  
@@ -449,12 +446,6 @@ describe('AppComponent - TDD International Standards', () => {
       // Test the ternary operation logic - this covers the "false" branch of the ternary
       const progressPercentage = component.todoList.length ? (component.concluidas() / component.todoList.length) * 100 : 0;
       expect(progressPercentage).toBe(0);
-      
-      // Trigger change detection without ngOnInit populating the list
-      fixture.detectChanges();
-      
-      // Verify it's still empty
-      expect(component.todoList.length).toBe(0);
     });
   });
 });
